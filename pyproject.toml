@@ -1,0 +1,11 @@
+[project]
+name = "auto-pivot-baker"
+version = "0.1.0"
+description = "A Blender extension for baking instance pivot data."
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "fake-bpy-module-5.2",
+]
