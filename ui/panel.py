@@ -20,4 +20,3 @@ class APB_PT_main(bpy.types.Panel):
             layout.prop(settings, "export_path")
         layout.separator()
         layout.operator("apb.bake")
-        layout.operator("apb.load_gn")

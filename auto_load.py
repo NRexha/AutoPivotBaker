@@ -1,4 +1,4 @@
-import bpy
+import bpy #pyright: ignore[reportMissingModuleSource]
 import typing
 import inspect
 import pkgutil
