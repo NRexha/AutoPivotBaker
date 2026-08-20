@@ -7,5 +7,5 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "fake-bpy-module-5.2",
+    "bpy", "random",
 ]

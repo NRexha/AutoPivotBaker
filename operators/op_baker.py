@@ -15,6 +15,6 @@ class APB_OT_bake(bpy.types.Operator):
             )
             return {'CANCELLED'}
 
-        bake_pivot(settings.collection, settings.target_engine, settings.store_random, settings.store_forward)
+        bake_pivot(settings.collection, settings.target_engine, settings.store_random)
 
         return {'FINISHED'}

@@ -18,7 +18,6 @@ class APB_PT_main(bpy.types.Panel):
         layout.prop(settings, "target_engine")
         #options
         layout.prop(settings, "store_random")
-        layout.prop(settings, "store_forward")
 
         #bake
         layout.separator()

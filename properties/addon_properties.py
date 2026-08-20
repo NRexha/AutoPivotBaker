@@ -24,17 +24,9 @@ class APB_PG_settings(bpy.types.PropertyGroup):
         default=False
     )#pyright: ignore[reportInvalidTypeForm]
 
-    store_forward: bpy.props.BoolProperty(
-        name="Store Forward",
-        description="Store the instance forward vector",
-        default=False
-    )#pyright: ignore[reportInvalidTypeForm]
-
 
 def register():
-    bpy.types.Scene.apb_settings = bpy.props.PointerProperty(
-        type=APB_PG_settings
-    )
+    bpy.types.Scene.apb_settings = bpy.props.PointerProperty(type=APB_PG_settings)
 
 
 def unregister():
