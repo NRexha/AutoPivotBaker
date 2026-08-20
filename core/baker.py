@@ -1,13 +1,23 @@
 import bpy #pyright: ignore[reportMissingModuleSource]
 import random
+from .engine_settings import ENGINE_SETTINGS
 
+def bake_pivot(collection, target_engine):
 
-def bake_pivot(collection, target_engine, store_random):
-    #gather and duplicate obj
+    #get engine settings
+    engine = ENGINE_SETTINGS.get(target_engine)
+
+    if engine is None:
+        print(f"Unsupported target engine: {target_engine}")
+        return None
+
+    #gather obj
     source_objects = [obj for obj in collection.objects if obj.type == 'MESH']
+
     if not source_objects:
         print("No mesh objects found.")
-        return
+        return None
+
     duplicated_objects = []
 
     #store pivot pos and random value (k=duplicated obj, v=ws pos/random)
@@ -20,10 +30,9 @@ def bake_pivot(collection, target_engine, store_random):
         bpy.context.scene.collection.objects.link(new_obj)
         duplicated_objects.append(new_obj)
         pivot_data[new_obj] = source_obj.matrix_world.translation.copy()
-        if store_random:
-            random_data[new_obj] = random.random()
+        random_data[new_obj] = random.random()
 
-    #apply rot and scale
+    #prepare obj
     bpy.ops.object.select_all(action='DESELECT')
     for obj in duplicated_objects:
         obj.select_set(True)
@@ -39,10 +48,7 @@ def bake_pivot(collection, target_engine, store_random):
         pivot_attribute = mesh.attributes.new(name=temp_attribute_name, type='FLOAT_VECTOR', domain='POINT')
         random_attribute = mesh.attributes.new(name=temp_random_name, type='FLOAT', domain='POINT')
         pivot = pivot_data[obj]
-
-        if target_engine == 'UNREAL':
-            pivot *= 100
-
+        pivot *= engine["position_scale"]
         random_value = random_data.get(obj, 0.0)
         for vertex in mesh.vertices:
             pivot_attribute.data[vertex.index].vector = pivot
@@ -52,18 +58,14 @@ def bake_pivot(collection, target_engine, store_random):
     bpy.context.view_layer.objects.active = duplicated_objects[0]
     bpy.ops.object.join()
     combined_object = bpy.context.object
-    
-
     #set origin to geometry
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='MEDIAN')
 
     #create UV attributes
     mesh = combined_object.data
-
     uv_xy = mesh.uv_layers.get("APB_PivotXY")
     if uv_xy is None:
         uv_xy = mesh.uv_layers.new(name="APB_PivotXY")
-
     uv_zrand = mesh.uv_layers.get("APB_PivotZRand")
     if uv_zrand is None:
         uv_zrand = mesh.uv_layers.new(name="APB_PivotZRand")
@@ -78,15 +80,21 @@ def bake_pivot(collection, target_engine, store_random):
         pivot = combined_object.matrix_world.inverted() @ pivot
         uv_xy.data[loop.index].uv = (pivot.x, pivot.y)
 
-        if store_random:
-            uv_zrand.data[loop.index].uv = (pivot.z, random_value)
-        else:
-            uv_zrand.data[loop.index].uv = (pivot.z, 0.0)
+        #store engine-specific pivot axis
+        match(engine["pivot_axis"]):
+            case "Z":
+                pivot_axis = pivot.z
+            case "Y":
+                pivot_axis = pivot.y
+            case "X":
+                pivot_axis = pivot.x
+        uv_zrand.data[loop.index].uv = (pivot_axis, random_value)
 
     #cleanup at end
     mesh.attributes.remove(pivot_attribute)
     mesh.attributes.remove(random_attribute)
     bpy.context.view_layer.layer_collection.children[collection.name].exclude = True
     combined_object.name = f"{collection.name}_Baked"
-
     print("Created:", combined_object.name)
+    
+    return combined_object

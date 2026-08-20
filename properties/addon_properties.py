@@ -1,10 +1,10 @@
 import bpy #pyright: ignore[reportMissingModuleSource]
 
-
 class APB_PG_settings(bpy.types.PropertyGroup):
 
     collection: bpy.props.PointerProperty(
         name="Collection",
+        description="Collection contaning the separate objects to bake",
         type=bpy.types.Collection
     )#pyright: ignore[reportInvalidTypeForm]
 
@@ -18,10 +18,16 @@ class APB_PG_settings(bpy.types.PropertyGroup):
         default='UNREAL'
     )#pyright: ignore[reportInvalidTypeForm]
 
-    store_random: bpy.props.BoolProperty(
-        name="Store Random",
-        description="Store a random value with the pivot data",
+    export_mesh: bpy.props.BoolProperty(
+        name="Export Mesh",
+        description="Export the baked mesh as an FBX",
         default=False
+    )#pyright: ignore[reportInvalidTypeForm]
+
+    export_path: bpy.props.StringProperty(
+        name="Export Folder",
+        description="Folder where the baked FBX will be exported",
+        subtype='DIR_PATH'
     )#pyright: ignore[reportInvalidTypeForm]
 
 
