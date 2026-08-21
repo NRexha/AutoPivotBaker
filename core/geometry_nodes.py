@@ -15,7 +15,6 @@ def load_geometry_nodes():
             directory=str(file_path/"NodeTree"),
             filename=node_group_name
         )
-    print("Loaded APB Geometry Nodes.")
 
 def unload_geometry_nodes():
     for node_group_name in GEOMETRY_NODES:
@@ -24,4 +23,3 @@ def unload_geometry_nodes():
             continue
         if node_group.users == 0:
             bpy.data.node_groups.remove(node_group)
-    print("Unloaded APB Geometry Nodes.")
