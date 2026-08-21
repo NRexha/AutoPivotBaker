@@ -7,5 +7,15 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "bpy", "random", "pathlib",
+	"fake-bpy-module-5-2",
+]
+
+[tool.apb]
+python-modules = [
+    "random",
+    "pathlib",
+    "typing",
+    "inspect",
+    "pkgutil",
+    "importlib",
 ]

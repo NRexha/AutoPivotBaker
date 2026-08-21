@@ -20,7 +20,7 @@ class APB_PG_settings(bpy.types.PropertyGroup):
 
     export_mesh: bpy.props.BoolProperty(
         name="Export Mesh",
-        description="Export the baked mesh as an FBX",
+        description="Export the baked mesh as an FBX. Export settings are based on the selected target engine.",
         default=False
     )#pyright: ignore[reportInvalidTypeForm]
 

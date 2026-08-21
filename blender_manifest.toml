@@ -1,16 +1,11 @@
 schema_version = "1.0.0"
-
 id = "autopivotbaker"
 version = "0.1.0"
 name = "Auto Pivot Baker"
-tagline = "Bake instance pivot data for use in game engines"
+tagline = "Bake and export instance pivot data for use in game engines."
 maintainer = "NRexha"
 type = "add-on"
-
-tags = ["Animation"]
-
-blender_version_min = "5.2.0"
-
-license = [
-    "SPDX:GPL-3.0-or-later",
-]
+website = "https://github.com/NRexha"
+tags = ["Import-Export", "Node"]
+blender_version_min = "5.0.0"
+license = ["SPDX:GPL-3.0-or-later"]

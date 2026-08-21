@@ -11,10 +11,11 @@ def load_geometry_nodes():
         if node_group_name in bpy.data.node_groups:
             continue
         bpy.ops.wm.append(
-            filepath=str(file_path / "NodeTree" / node_group_name),
-            directory=str(file_path / "NodeTree"),
+            filepath=str(file_path/"NodeTree"/node_group_name),
+            directory=str(file_path/"NodeTree"),
             filename=node_group_name
         )
+    print("Loaded APB Geometry Nodes.")
 
 def unload_geometry_nodes():
     for node_group_name in GEOMETRY_NODES:
@@ -23,10 +24,4 @@ def unload_geometry_nodes():
             continue
         if node_group.users == 0:
             bpy.data.node_groups.remove(node_group)
-
-
-def update_geometry_nodes(self, context):
-    if self.add_geometry_nodes:
-        load_geometry_nodes()
-    else:
-        unload_geometry_nodes()
+    print("Unloaded APB Geometry Nodes.")
