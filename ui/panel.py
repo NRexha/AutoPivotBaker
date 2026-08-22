@@ -14,6 +14,7 @@ class APB_PT_main(bpy.types.Panel):
         layout.label(text="Baking Settings")
         layout.prop(settings, "collection")
         layout.prop(settings, "target_engine")
+        layout.prop(settings, "mesh_origin")
         layout.separator()
         layout.prop(settings, "export_mesh")
         if settings.export_mesh:

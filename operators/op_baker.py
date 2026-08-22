@@ -13,7 +13,7 @@ class APB_OT_bake(bpy.types.Operator):
             self.report({'ERROR'}, "No collection selected.")
             return {'CANCELLED'}
 
-        baked_object = baker.bake_pivot(settings.collection, settings.target_engine)
+        baked_object = baker.bake_pivot(settings.collection, settings.target_engine, settings.mesh_origin)
 
         if baked_object is None:
             return {'CANCELLED'}

@@ -18,9 +18,20 @@ class APB_PG_settings(bpy.types.PropertyGroup):
         default='UNREAL'
     )#pyright: ignore[reportInvalidTypeForm]
 
+    mesh_origin: bpy.props.EnumProperty(
+        name="Mesh Origin",
+        description="Choose the origin of the combined mesh",
+        items=[
+            ('CENTER', "Center", "The origin is at the center of the geometry"),
+            ('BOTTOM_CENTER', "Bottom Center", "The origin is at the bottom center of the geometry"),
+            ('TOP_CENTER', "Top Center", "The origin is at the top center of the geometry"),
+        ],
+        default='CENTER'
+    )#pyright: ignore[reportInvalidTypeForm]
+
     export_mesh: bpy.props.BoolProperty(
         name="Export Mesh",
-        description="Export the baked mesh as an FBX. Export settings are based on the selected target engine.",
+        description="Export the baked mesh as an FBX. Export settings are based on the selected target engine",
         default=False
     )#pyright: ignore[reportInvalidTypeForm]
 

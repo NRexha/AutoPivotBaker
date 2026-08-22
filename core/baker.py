@@ -2,10 +2,10 @@ import bpy  # pyright: ignore[reportMissingModuleSource]
 import random
 from .engine_settings import ENGINE_SETTINGS
 
-
 def find_layer_collection(layer_collection, collection):
     if layer_collection.collection == collection:
         return layer_collection
+
     for child in layer_collection.children:
         result = find_layer_collection(child, collection)
         if result:
@@ -26,17 +26,54 @@ def get_pivot_component(pivot, mapping):
             raise ValueError(f"Invalid pivot axis: {axis}")
     return value * sign
 
-def bake_pivot(collection, target_engine):
-    engine = ENGINE_SETTINGS.get(target_engine)
+def set_mesh_origin(combined_object, mesh_origin):
+    mesh = combined_object.data
+    
+    min_x = min(vertex.co.x for vertex in mesh.vertices)
+    max_x = max(vertex.co.x for vertex in mesh.vertices)
+    min_y = min(vertex.co.y for vertex in mesh.vertices)
+    max_y = max(vertex.co.y for vertex in mesh.vertices)
+    min_z = min(vertex.co.z for vertex in mesh.vertices)
+    max_z = max(vertex.co.z for vertex in mesh.vertices)
+    center_x = (min_x + max_x) * 0.5
+    center_y = (min_y + max_y) * 0.5
+    center_z = (min_z + max_z) * 0.5
 
+    match mesh_origin:
+        case "CENTER":
+            origin_x = center_x
+            origin_y = center_y
+            origin_z = center_z
+        case "BOTTOM_CENTER":
+            origin_x = center_x
+            origin_y = center_y
+            origin_z = min_z
+        case "TOP_CENTER":
+            origin_x = center_x
+            origin_y = center_y
+            origin_z = max_z
+        case _:
+            raise ValueError(f"Invalid mesh origin: {mesh_origin}")
+
+    for vertex in mesh.vertices:
+        vertex.co.x -= origin_x
+        vertex.co.y -= origin_y
+        vertex.co.z -= origin_z
+    combined_object.location.x += origin_x
+    combined_object.location.y += origin_y
+    combined_object.location.z += origin_z
+
+
+def bake_pivot(collection, target_engine, mesh_origin):
+    engine = ENGINE_SETTINGS.get(target_engine)
     if engine is None:
         print(f"Unsupported target engine: {target_engine}")
         return None
 
     position_scale = engine["position_scale"]
     pivot_mapping = engine["pivot_mapping"]
-
     source_objects = [obj for obj in collection.objects if obj.type == 'MESH']
+
     if not source_objects:
         print("No mesh objects found.")
         return None
@@ -50,7 +87,7 @@ def bake_pivot(collection, target_engine):
         new_obj.data = source_obj.data.copy()
         bpy.context.scene.collection.objects.link(new_obj)
         duplicated_objects.append(new_obj)
-        pivot_data[new_obj] = (source_obj.matrix_world.translation.copy())
+        pivot_data[new_obj] = source_obj.matrix_world.translation.copy()
         random_data[new_obj] = random.random()
 
     bpy.ops.object.select_all(action='DESELECT')
@@ -76,8 +113,8 @@ def bake_pivot(collection, target_engine):
     bpy.context.view_layer.objects.active = duplicated_objects[0]
     bpy.ops.object.join()
     combined_object = bpy.context.object
-
-    bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='MEDIAN')
+    set_mesh_origin(combined_object, mesh_origin)
+    combined_object.location = (0.0, 0.0, 0.0)
     mesh = combined_object.data
 
     uv_xy = mesh.uv_layers.get("APB_PivotXY")
@@ -117,8 +154,7 @@ def bake_pivot(collection, target_engine):
 
     if layer_collection:
         layer_collection.exclude = True
-
-    combined_object.name = (f"{collection.name}_Baked")
+    combined_object.name = f"{collection.name}_Baked"
     print(f"Created: {combined_object.name}")
 
     return combined_object
