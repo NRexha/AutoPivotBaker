@@ -12,7 +12,6 @@ def find_layer_collection(layer_collection, collection):
             return result
     return None
 
-
 def get_pivot_component(pivot, mapping):
     axis, sign = mapping
     match axis:
