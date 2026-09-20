@@ -5,7 +5,7 @@ class APB_PT_main(bpy.types.Panel):
     bl_idname = "APB_PT_main"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Pivot Baker"
+    bl_category = "APB"
 
     def draw(self, context):
         layout = self.layout

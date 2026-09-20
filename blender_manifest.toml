@@ -1,11 +1,13 @@
 schema_version = "1.0.0"
 id = "autopivotbaker"
-version = "0.1.0"
+version = "1.0.0"
 name = "Auto Pivot Baker"
-tagline = "Bake and export instance pivot data for use in game engines"
+tagline = "Pivot baking for game engines"
 maintainer = "NRexha"
 type = "add-on"
-website = "https://github.com/NRexha"
-tags = ["Import-Export", "Node"]
+website = "https://github.com/NRexha/AutoPivotBaker"
+tags = ["Import-Export", "Game Engine", "Node"]
 blender_version_min = "5.0.0"
 license = ["SPDX:GPL-3.0-or-later"]
+[permissions]
+files = "Export baked meshes and load bundled geometry nodes"

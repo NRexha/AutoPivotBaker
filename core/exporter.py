@@ -8,15 +8,15 @@ from .engine_settings import ENGINE_SETTINGS
 def export_fbx(baked_object, target_engine, export_path):
     engine = ENGINE_SETTINGS.get(target_engine)
     if engine is None:
-        print(f"Unsupported target engine: {target_engine}")
+        #print(f"Unsupported target engine: {target_engine}")
         return False
 
     if baked_object is None:
-        print("No baked object to export.")
+        #print("No baked object to export.")
         return False
 
     if not export_path:
-        print("No export folder specified.")
+        #print("No export folder specified.")
         return False
 
     export_folder = Path(bpy.path.abspath(export_path))
@@ -47,5 +47,5 @@ def export_fbx(baked_object, target_engine, export_path):
 
     finally:
         baked_object.rotation_euler = original_rotation
-    print(f"Exported: {filepath}")
+    #print(f"Exported: {filepath}")
     return True

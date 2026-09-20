@@ -1,16 +1,7 @@
 import bpy  # pyright: ignore[reportMissingModuleSource]
 import random
 from .engine_settings import ENGINE_SETTINGS
-
-def find_layer_collection(layer_collection, collection):
-    if layer_collection.collection == collection:
-        return layer_collection
-
-    for child in layer_collection.children:
-        result = find_layer_collection(child, collection)
-        if result:
-            return result
-    return None
+from . import utils
 
 def get_pivot_component(pivot, mapping):
     axis, sign = mapping
@@ -62,11 +53,10 @@ def set_mesh_origin(combined_object, mesh_origin):
     combined_object.location.y += origin_y
     combined_object.location.z += origin_z
 
-
 def bake_pivot(collection, target_engine, mesh_origin):
     engine = ENGINE_SETTINGS.get(target_engine)
     if engine is None:
-        print(f"Unsupported target engine: {target_engine}")
+        #print(f"Unsupported target engine: {target_engine}")
         return None
 
     position_scale = engine["position_scale"]
@@ -74,7 +64,7 @@ def bake_pivot(collection, target_engine, mesh_origin):
     source_objects = [obj for obj in collection.objects if obj.type == 'MESH']
 
     if not source_objects:
-        print("No mesh objects found.")
+        #print("No mesh objects found.")
         return None
 
     duplicated_objects = []
@@ -128,11 +118,11 @@ def bake_pivot(collection, target_engine, mesh_origin):
     random_attribute = mesh.attributes.get(temp_random_name)
 
     if pivot_attribute is None:
-        print("Pivot attribute was not found.")
+        #print("Pivot attribute was not found.")
         return None
 
     if random_attribute is None:
-        print("Random attribute was not found.")
+        #print("Random attribute was not found.")
         return None
 
     for loop in mesh.loops:
@@ -149,11 +139,18 @@ def bake_pivot(collection, target_engine, mesh_origin):
     mesh.attributes.remove(pivot_attribute)
     mesh.attributes.remove(random_attribute)
 
-    layer_collection = find_layer_collection(bpy.context.view_layer.layer_collection, collection)
+    layer_collection = utils.find_layer_collection(bpy.context.view_layer.layer_collection, collection)
 
     if layer_collection:
         layer_collection.exclude = True
     combined_object.name = f"{collection.name}_Baked"
-    print(f"Created: {combined_object.name}")
 
+    baked_collection = utils.get_baked_collection()
+
+    for object_collection in list(combined_object.users_collection):
+        object_collection.objects.unlink(combined_object)
+        
+    baked_collection.objects.link(combined_object)
+
+    #print(f"Created: {combined_object.name}")
     return combined_object
