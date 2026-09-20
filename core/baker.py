@@ -1,4 +1,4 @@
-import bpy  # pyright: ignore[reportMissingModuleSource]
+import bpy # pyright: ignore[reportMissingModuleSource]
 import random
 from .engine_settings import ENGINE_SETTINGS
 from . import utils
@@ -18,7 +18,6 @@ def get_pivot_component(pivot, mapping):
 
 def set_mesh_origin(combined_object, mesh_origin):
     mesh = combined_object.data
-    
     min_x = min(vertex.co.x for vertex in mesh.vertices)
     max_x = max(vertex.co.x for vertex in mesh.vertices)
     min_y = min(vertex.co.y for vertex in mesh.vertices)
@@ -52,11 +51,11 @@ def set_mesh_origin(combined_object, mesh_origin):
     combined_object.location.x += origin_x
     combined_object.location.y += origin_y
     combined_object.location.z += origin_z
+    return origin_x, origin_y, origin_z
 
 def bake_pivot(collection, target_engine, mesh_origin):
     engine = ENGINE_SETTINGS.get(target_engine)
     if engine is None:
-        #print(f"Unsupported target engine: {target_engine}")
         return None
 
     position_scale = engine["position_scale"]
@@ -64,8 +63,13 @@ def bake_pivot(collection, target_engine, mesh_origin):
     source_objects = [obj for obj in collection.objects if obj.type == 'MESH']
 
     if not source_objects:
-        #print("No mesh objects found.")
         return None
+
+    baked_name = f"{collection.name}_Baked"
+    existing_baked = bpy.data.objects.get(baked_name)
+
+    if existing_baked:
+        bpy.data.objects.remove(existing_baked, do_unlink=True)
 
     duplicated_objects = []
     pivot_data = {}
@@ -93,8 +97,8 @@ def bake_pivot(collection, target_engine, mesh_origin):
         pivot_attribute = mesh.attributes.new(name=temp_attribute_name, type='FLOAT_VECTOR', domain='POINT')
         random_attribute = mesh.attributes.new(name=temp_random_name, type='FLOAT', domain='POINT')
         pivot = pivot_data[obj].copy()
-        pivot *= position_scale
         random_value = random_data.get(obj, 0.0)
+
         for vertex in mesh.vertices:
             pivot_attribute.data[vertex.index].vector = pivot
             random_attribute.data[vertex.index].value = random_value
@@ -102,7 +106,11 @@ def bake_pivot(collection, target_engine, mesh_origin):
     bpy.context.view_layer.objects.active = duplicated_objects[0]
     bpy.ops.object.join()
     combined_object = bpy.context.object
-    set_mesh_origin(combined_object, mesh_origin)
+
+    pivot_matrix = combined_object.matrix_world.copy()
+
+    origin_x, origin_y, origin_z = set_mesh_origin(combined_object, mesh_origin)
+
     combined_object.location = (0.0, 0.0, 0.0)
     mesh = combined_object.data
 
@@ -118,17 +126,23 @@ def bake_pivot(collection, target_engine, mesh_origin):
     random_attribute = mesh.attributes.get(temp_random_name)
 
     if pivot_attribute is None:
-        #print("Pivot attribute was not found.")
         return None
 
     if random_attribute is None:
-        #print("Random attribute was not found.")
         return None
 
     for loop in mesh.loops:
         pivot = pivot_attribute.data[loop.vertex_index].vector.copy()
         random_value = random_attribute.data[loop.vertex_index].value
-        pivot = combined_object.matrix_world.inverted() @ pivot
+
+        pivot = pivot_matrix.inverted() @ pivot
+
+        pivot.x -= origin_x
+        pivot.y -= origin_y
+        pivot.z -= origin_z
+
+        pivot *= position_scale
+
         uv_x = get_pivot_component(pivot, pivot_mapping[0])
         uv_y = get_pivot_component(pivot, pivot_mapping[1])
         uv_z = get_pivot_component(pivot, pivot_mapping[2])
@@ -143,14 +157,14 @@ def bake_pivot(collection, target_engine, mesh_origin):
 
     if layer_collection:
         layer_collection.exclude = True
-    combined_object.name = f"{collection.name}_Baked"
+
+    combined_object.name = baked_name
 
     baked_collection = utils.get_baked_collection()
 
     for object_collection in list(combined_object.users_collection):
         object_collection.objects.unlink(combined_object)
-        
+
     baked_collection.objects.link(combined_object)
 
-    #print(f"Created: {combined_object.name}")
     return combined_object
