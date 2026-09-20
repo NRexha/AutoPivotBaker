@@ -11,3 +11,5 @@ blender_version_min = "5.0.0"
 license = ["SPDX:GPL-3.0-or-later"]
 [permissions]
 files = "Export baked meshes and load bundled geometry nodes"
+[build]
+paths_exclude_pattern = ["__pycache__/", "/.git/", "/*.zip", "/pyproject.toml", "/.gitignore", "/.gitattributes", "/.vscode/"]
