@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "autopivotbaker"
-version = "1.0.0"
+version = "1.0.1"
 name = "Auto Pivot Baker"
 tagline = "Pivot baking for game engines"
 maintainer = "NRexha"

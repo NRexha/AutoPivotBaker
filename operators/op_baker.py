@@ -17,6 +17,9 @@ class APB_OT_bake(bpy.types.Operator):
             self.report({'ERROR'}, "The selected collection contains no mesh objects.")
             return {'CANCELLED'}
 
+        if context.mode != 'OBJECT':
+            bpy.ops.object.mode_set(mode='OBJECT')
+
         baked_object = baker.bake_pivot(settings.collection, settings.target_engine, settings.mesh_origin)
 
         if baked_object is None:
