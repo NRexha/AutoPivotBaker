@@ -35,7 +35,7 @@ ENGINE_SETTINGS = {
         "use_space_transform": True,
         "bake_space_transform": True,
 
-        "export_rotation_x": 90,
+        "export_rotation_x": 0,
     }
 
 }
