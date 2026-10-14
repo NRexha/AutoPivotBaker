@@ -40,11 +40,3 @@ class APB_PG_settings(bpy.types.PropertyGroup):
         description="Folder where the baked FBX will be exported",
         subtype='DIR_PATH'
     )#pyright: ignore[reportInvalidTypeForm]
-
-
-def register():
-    bpy.types.Scene.apb_settings = bpy.props.PointerProperty(type=APB_PG_settings)
-
-
-def unregister():
-    del bpy.types.Scene.apb_settings
