@@ -11,7 +11,7 @@ The baked data can be used in game engines to drive procedural mesh animation an
 
 ## Installation
 
-Auto Pivot Baker can be installed from the [Releases page](../../releases). You can either just simply drag & drop the zip file in blender or use the *Install from Disk* method.
+Auto Pivot Baker can either be installed from the [Blender Extensions website](https://extensions.blender.org/add-ons/autopivotbaker/) or from the [Releases page](../../releases). You can either just simply drag & drop the zip file in blender or use the *Install from Disk* method.
 
 ## Features
 
