@@ -1,24 +1,20 @@
 # Auto Pivot Baker
 
 <div align="center">
-
 <a href="https://github.com/NRexha/AutoPivotBaker/releases/">
-  <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release" alt="GitHub release">
-</a>
+  <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release" alt="GitHub release"></a>
 <a href="https://extensions.blender.org/add-ons/autopivotbaker/">
-  <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange" alt="Install from Blender Extensions">
-</a>
+  <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange" alt="Install from Blender Extensions"></a>
 <a href="https://github.com/NRexha/AutoPivotBaker/blob/main/pyproject.toml">
-  <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FNRexha%2FAutoPivotBaker%2Frefs%2Fheads%2Fmain%2Fpyproject.toml&query=project.requires-python&label=Python&logo=python&logoColor=white" alt="Required Python version">
-</a>
-<a href="https://github.com/NRexha/AutoPivotBaker#license">
-  <img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="GPL-3.0 License">
-</a>
-
+  <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FNRexha%2FAutoPivotBaker%2Frefs%2Fheads%2Fmain%2Fpyproject.toml&query=project.requires-python&label=Python&logo=python&logoColor=white" alt="Required Python version"></a>
+<a href="#license" title="Go to license section">
+  <img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="License"></a>
 </div>
 <br>
 
-Auto Pivot Baker is a Blender extension that bakes per-object pivot data into UV channels, allowing multiple mesh objects to be combined into a single mesh while preserving their individual pivots. The baked data can drive procedural mesh animation and vertex displacement through materials and shaders in Unreal Engine and Unity, without requiring each piece to remain a separate mesh object.
+Auto Pivot Baker is a Blender extension that bakes per-object pivot data into UV channels, allowing multiple mesh objects to be combined into a single mesh while preserving their individual pivots. 
+
+The baked data can drive procedural mesh animation and vertex displacement through materials and shaders in Unreal Engine and Unity, without requiring each piece to remain a separate mesh object.
 
 <img width="825" height="328" alt="image" src="https://github.com/user-attachments/assets/6d3e8382-c6b8-45d5-bbd4-636f492b3905" />
 
