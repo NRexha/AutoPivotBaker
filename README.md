@@ -1,14 +1,14 @@
 # Auto Pivot Baker
 
 <div align="center">
-<a href="https://github.com/NRexha/AutoPivotBaker/releases/">
-  <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release" alt="GitHub release"></a>
-<a href="https://extensions.blender.org/add-ons/autopivotbaker/">
-  <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange" alt="Install from Blender Extensions"></a>
-<a href="https://github.com/NRexha/AutoPivotBaker/blob/main/pyproject.toml">
-  <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FNRexha%2FAutoPivotBaker%2Frefs%2Fheads%2Fmain%2Fpyproject.toml&query=project.requires-python&label=Python&logo=python&logoColor=white" alt="Required Python version"></a>
-<a href="#license" title="Go to license section">
-  <img src="https://img.shields.io/badge/License-GPL--3.0-blue" alt="License"></a>
+  <a href="https://github.com/NRexha/AutoPivotBaker/releases/">
+    <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release&style=flat-square" alt="GitHub release"></a>
+  <a href="https://extensions.blender.org/add-ons/autopivotbaker/">
+    <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange?style=flat-square" alt="Install from Blender Extensions"></a>
+  <a href="https://github.com/NRexha/AutoPivotBaker/blob/main/pyproject.toml">
+    <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FNRexha%2FAutoPivotBaker%2Frefs%2Fheads%2Fmain%2Fpyproject.toml&query=project.requires-python&label=Python&logo=python&logoColor=white&style=flat-square" alt="Required Python version"></a>
+  <a href="#license" title="Go to license section">
+    <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License"></a>
 </div>
 <br>
 
