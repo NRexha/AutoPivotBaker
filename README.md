@@ -1,8 +1,20 @@
 # Auto Pivot Baker
 
-Auto Pivot Baker is a Blender extension that bakes per-object pivot data into UV channels, allowing multiple separate mesh objects to be combined into a single mesh while preserving their individual pivots.
+<div align="center">
+  <a href="https://github.com/NRexha/AutoPivotBaker/releases/">
+    <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release&style=flat-square" alt="GitHub release"></a>
+  <a href="https://extensions.blender.org/add-ons/autopivotbaker/">
+    <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange?style=flat-square" alt="Install from Blender Extensions"></a>
+  <a href="https://github.com/NRexha/AutoPivotBaker/blob/main/pyproject.toml">
+    <img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FNRexha%2FAutoPivotBaker%2Frefs%2Fheads%2Fmain%2Fpyproject.toml&query=project.requires-python&label=Python&logo=python&logoColor=white&style=flat-square" alt="Required Python version"></a>
+  <a href="#license" title="Go to license section">
+    <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License"></a>
+</div>
+<br>
 
-The baked data can be used in game engines to drive procedural mesh animation and vertex displacement through materials and shaders, without requiring each piece to remain a separate mesh object.
+Auto Pivot Baker is a Blender extension that bakes per-object pivot data into UV channels, allowing multiple mesh objects to be combined into a single mesh while preserving their individual pivots. 
+
+The baked data can drive procedural mesh animation and vertex displacement through materials and shaders in Unreal Engine and Unity, without requiring each piece to remain a separate mesh object.
 
 <img width="825" height="328" alt="image" src="https://github.com/user-attachments/assets/6d3e8382-c6b8-45d5-bbd4-636f492b3905" />
 
@@ -11,7 +23,7 @@ The baked data can be used in game engines to drive procedural mesh animation an
 
 ## Installation
 
-Auto Pivot Baker can either be installed from the [Blender Extensions website](https://extensions.blender.org/add-ons/autopivotbaker/) or from the [Releases page](../../releases). You can either just simply drag & drop the zip file in blender or use the *Install from Disk* method.
+Auto Pivot Baker can either be installed from [*Blender Extensions* website](https://extensions.blender.org/add-ons/autopivotbaker/) or from the [releases page](../../releases). You can either just simply drag & drop the zip file in Blender or use the *Install from Disk* method.
 
 ## Features
 
@@ -29,7 +41,7 @@ Place the mesh objects you want to bake into a collection. Each object will be t
 
 ### 2. Configure the bake settings
 
-Open the **APB** panel in the 3D Viewport sidebar and configure the following options:
+Open the *APB* panel in the 3D Viewport sidebar and configure the following options:
 
 - **Collection:** Select the collection containing the source meshes.
 - **Target Engine:** Choose Unreal Engine or Unity to apply the corresponding coordinate mapping.
@@ -38,15 +50,11 @@ Open the **APB** panel in the 3D Viewport sidebar and configure the following op
 
 ### 3. Bake the mesh
 
-Click **Bake Pivot** to generate the combined mesh with the pivot data stored in its UV channels.
-
-The original source collection is preserved. The resulting mesh is created separately and can then be exported to your target engine.
+Click **Bake Pivot** to generate the combined mesh with the pivot data stored in its UV channels. The original source collection is preserved. The resulting mesh is created separately and can then be exported to your target engine.
 
 ### 4. Use the baked data in your engine
 
-Import the resulting mesh into your target engine and access the baked pivot data in your material or shader. This data can be used to perform transformations around each piece's original pivot, enabling procedural effects such as rotation, scaling, and displacement.
-
-The exact UV channels and coordinate mappings depend on the selected target engine. (In the sample projects, you can find a subgraph/material function that correctly extracts the pivot data).
+Import the resulting mesh into your target engine and access the baked pivot data in your material or shader. The exact UV channels and coordinate mappings depend on the selected target engine. (In the sample projects, you can find a subgraph/material function that correctly extracts the pivot data).
 
 ## Geometry Nodes
 
@@ -68,7 +76,7 @@ Customizing this setup requires an understanding of Geometry Nodes and the targe
 - Each project has explanations on how to achieve the desired effect. The release also includes the Blender project used to create the meshes featured in these samples, allowing you to inspect the source meshes and their preparation.
   <img width="1920" height="1080" alt="Annotations" src="https://github.com/user-attachments/assets/a90727a3-f164-48fb-ac7b-11e9490ebe94" />
 
-Those projects are also available here in the [Releases page](../../releases).
+Those projects are also available here in the [releases page](../../releases).
 
 ## Supported Versions
 
@@ -78,4 +86,4 @@ Those projects are also available here in the [Releases page](../../releases).
 
 ## License
 
-See [LICENSE](LICENSE) for license information.
+Released under <a href="/LICENSE">GPL-3.0</a> by <a href="https://github.com/NRexha">@NRexha</a>.
