@@ -5,18 +5,9 @@ description = "A Blender extension for baking instance pivot data."
 requires-python = ">=3.13,<3.14"
 dependencies = []
 
-[dependency-groups]
-dev = [
-	"fake-bpy-module-5-2",
-]
-
 [tool.apb]
 python-modules = [
     "random",
     "pathlib",
-    "typing",
-    "inspect",
-    "pkgutil",
-    "importlib",
     "math",
 ]
