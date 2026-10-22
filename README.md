@@ -1,8 +1,6 @@
 # Auto Pivot Baker
 
 <div align="center">
-  <a href="https://github.com/NRexha/AutoPivotBaker/releases/">
-    <img src="https://img.shields.io/github/release/NRexha/AutoPivotBaker?include_prereleases=&sort=semver&color=blue&label=Latest%20Release&style=flat-square" alt="GitHub release"></a>
   <a href="https://extensions.blender.org/add-ons/autopivotbaker/">
     <img src="https://img.shields.io/badge/Blender_Extensions-Install-orange?style=flat-square" alt="Install from Blender Extensions"></a>
   <a href="https://github.com/NRexha/AutoPivotBaker/blob/main/pyproject.toml">
